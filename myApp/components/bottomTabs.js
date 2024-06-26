@@ -7,7 +7,7 @@ import { useTheme } from "./themeContext";
 
 const Tab = createBottomTabNavigator();
 
-export function Tabs ({}) {
+const Tabs = ({}) => {
     const { isDarkTheme } = useTheme();
     return(
         <Tab.Navigator
@@ -56,3 +56,4 @@ const styles = StyleSheet.create({
       backgroundColor: '#000020',
   },
   });
+  export default Tabs;
