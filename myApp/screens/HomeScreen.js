@@ -41,7 +41,7 @@ import { Option } from "../components/options";
 import { Transaction } from "../components/transaction";
 import { useTheme } from "../components/themeContext";
 
-export function HomeScreen () {
+const HomeScreen = () => {
     const { isDarkTheme } = useTheme();
     return(
         <ScrollView style={[styles.container, isDarkTheme && styles.darkContainer]} showsVerticalScrollIndicator={false}>
@@ -175,3 +175,4 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     },
 })
+export default  HomeScreen;

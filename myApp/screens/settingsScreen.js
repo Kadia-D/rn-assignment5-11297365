@@ -1,44 +1,64 @@
-import React from 'react';
-import { View, Text, StyleSheet, Switch } from 'react-native';
-import { useTheme } from '@react-navigation/native';
+import { View,StyleSheet, Text, Switch } from "react-native";
+import { Settings } from "../components/settingsOptions";
+import { useTheme } from '../components/themeContext';
 
-export default function SettingsScreen({ toggleTheme }) {
-  const { colors } = useTheme();
-  const [isEnabled, setIsEnabled] = React.useState(false);
-  const toggleSwitch = () => {
-    setIsEnabled(previousState => !previousState);
-    toggleTheme();
-  };
 
-  return (
-    <View style={styles.container}>
-      <Text style={[styles.text, { color: colors.text }]}>Settings</Text>
-      <View style={styles.switchContainer}>
-        <Text style={{ color: colors.text }}>Dark Theme</Text>
-        <Switch
-          trackColor={{ false: "#767577", true: "#81b0ff" }}
-          thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
-          ios_backgroundColor="#3e3e3e"
-          onValueChange={toggleSwitch}
-          value={isEnabled}
-        />
-      </View>
-    </View>
-  );
-}
+const SettingsScreen = () => {
+    const { isDarkTheme, toggleTheme } = useTheme();
+
+    return(
+        <View style={[styles.settings, isDarkTheme && styles.darkSettings]}>
+            <Text style={[styles.settingsHeader, isDarkTheme && styles.darksettingsHeader]}>Settings</Text>
+            <Settings setting={'Language'}/>
+            <Settings setting={'My Profile'}/>
+            <Settings setting={'Contact Us'}/>
+            <Settings setting={'Change Password'}/>
+            <Settings setting={'Privacy Policy'}/>
+            <View style={styles.themeView}>
+                <Text style={[styles.theme, isDarkTheme && styles.darksettingsHeader]}>Theme</Text>
+                <Switch
+                    trackColor={{ false: "#767577", true: "lightgreen" }}
+                    onValueChange={toggleTheme}
+                    value={isDarkTheme}
+                    style={styles.switch}
+                />
+            </View>
+            
+        </View>
+    )}
+
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-  },
-  text: {
-    fontSize: 24,
-  },
-  switchContainer: {
-    flexDirection: 'row',
-    marginTop: 20,
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-});
+    settings:{
+        flex: 1,
+        padding: '20px',
+        paddingTop: '40px',
+    },
+    darkSettings: {
+        backgroundColor: '#000020',
+    },
+    settingsHeader:{
+        fontSize: '25px',
+        marginBottom: '50px',
+        fontWeight: 'bold',
+        textAlign: 'center',
+    },
+    darksettingsHeader:{
+        color: 'white'
+    },
+    themeView: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginTop: '50px',
+    },
+    theme: {
+        fontSize: '25px',
+        fontWeight: 'bold',
+        letterSpacing: '1.5px',
+    },
+    switch: {
+        height: '30px'
+    },
+})
+export default SettingsScreen;
